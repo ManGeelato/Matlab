@@ -1,6 +1,4 @@
-﻿using System; 
-using System.Collections.Generic; 
-using System.Text; 
+﻿using System;
 
 namespace Matlab
 {
@@ -8,20 +6,20 @@ namespace Matlab
     {
         static void Main(string[] args)
         {
-            MLApp.MLApp matlab = new MLApp.MLApp();
+            string jsonFilePath = @"c:\temp\people\people.json";
 
-            matlab.Execute(@"cd c:\temp\matlabFunction");
+            JsonMatLab jsonMatLab = new JsonMatLab();
 
-            object result = null;
+            try
+            {
+                double avgAge = jsonMatLab.GetAverageAge(jsonFilePath);
 
-            matlab.Feval("myfunc", 3, out result, 5, 50, "world oo");
-
-            object[] res = result as object[];
-
-            Console.WriteLine(res[0]);
-            Console.WriteLine(res[1]);
-            Console.WriteLine(res[2]);
-            Console.ReadLine();
+                Console.WriteLine("Average Age: " + avgAge);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
     }
 }
